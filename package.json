@@ -1,12 +1,12 @@
 {
   "name": "aerox-music",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Samaksh Music Bot with LavaLink",
-  "main": "index.js",
+  "main": "AeroX/index.js",
   "type": "commonjs",
   "scripts": {
-    "start": "node index.js",
-    "dev": "node index.js"
+    "start": "node AeroX/index.js",
+    "dev": "node AeroX/index.js"
   },
   "keywords": [
     "discord",
@@ -17,7 +17,7 @@
   "author": "itsfizys (Aegis) + Samaksh",
   "license": "ISC",
   "engines": {
-    "node": ">=18.x"
+    "node": "18.x"
   },
   "dependencies": {
     "@napi-rs/canvas": "^0.1.80",
