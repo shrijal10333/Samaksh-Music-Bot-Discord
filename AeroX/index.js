@@ -4,7 +4,8 @@ const fs = require('fs');
 const path = require('path');
 const { setupMusicEvents } = require('./music/events');
 const config = require('./config');
-
+require('dotenv').config();
+const keepAlive = require("./keep_alive");
 
 const colors = {
     CYAN: '\x1b[96m',
@@ -24,7 +25,7 @@ const colors = {
 
 function printHeader() {
     console.log(`\n${colors.CYAN}╭─────────────────────────────────────────────────────────────╮${colors.RESET}`);
-    console.log(`${colors.CYAN}│${colors.RESET}                     ${colors.BOLD}${colors.PURPLE}♪ AEROX MUSIC ♪${colors.RESET}                     ${colors.CYAN}│${colors.RESET}`);
+    console.log(`${colors.CYAN}│${colors.RESET}                     ${colors.BOLD}${colors.PURPLE}♪ Samaksh MUSIC ♪${colors.RESET}                     ${colors.CYAN}│${colors.RESET}`);
     console.log(`${colors.CYAN}│${colors.RESET}              ${colors.DIM}${colors.WHITE}High-Quality • Fast • Reliable${colors.RESET}               ${colors.CYAN}│${colors.RESET}`);
     console.log(`${colors.CYAN}╰─────────────────────────────────────────────────────────────╯${colors.RESET}\n`);
 }
@@ -173,12 +174,12 @@ printLoading('Database connection');
 require('../database/models');
 printSuccess('Database initialized');
 
-
 const nodes = [];
-const hosts = config.LAVALINK.HOSTS.split(',');
-const ports = config.LAVALINK.PORTS.split(',');
-const passwords = config.LAVALINK.PASSWORDS.split(',');
-const secures = config.LAVALINK.SECURES.split(',');
+
+const hosts = (config.LAVALINK.HOSTS || "").split(',');
+const ports = (config.LAVALINK.PORTS || "").split(',');
+const passwords = (config.LAVALINK.PASSWORDS || "").split(',');
+const secures = (config.LAVALINK.SECURES || "").split(',');
 
 for (let i = 0; i < hosts.length; i++) {
     nodes.push({
@@ -387,6 +388,7 @@ process.on('SIGINT', () => {
 });
 
 printLoading('Discord authentication');
+keepAlive();
 client.login(config.BOT_TOKEN).catch((error) => {
     printError(`Failed to login: ${error.message}`);
     process.exit(1);
